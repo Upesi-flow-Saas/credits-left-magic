@@ -48,20 +48,26 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+          bg: "hsl(var(--sidebar-bg))",
+          fg: "hsl(var(--sidebar-fg))",
+          active: "hsl(var(--sidebar-active))",
+        },
+        status: {
+          active: "hsl(var(--status-active))",
+          pending: "hsl(var(--status-pending))",
+          error: "hsl(var(--status-error))",
+          inactive: "hsl(var(--status-inactive))",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
+        'gradient-accent': 'var(--gradient-accent)',
       },
       keyframes: {
         "accordion-down": {
