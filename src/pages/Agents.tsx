@@ -23,7 +23,17 @@ export default function Agents() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [loading, setLoading] = useState<string | null>(null);
   const { toast } = useToast();
-
+useEffect(() => {
+     const loadAgents = async () => {
+       try {
+         const realAgents = await realApiService.fetchAgents();
+         setAgents(realAgents);
+       } catch (error) {
+         console.error('Error loading agents:', error);
+       }
+     };
+     loadAgents();
+   }, []);
   const handleSubscribeClick = async (agentId: string) => {
     setLoading(agentId);
     try {
