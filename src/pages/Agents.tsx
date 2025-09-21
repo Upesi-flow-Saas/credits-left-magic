@@ -14,11 +14,11 @@ import {
   Search
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { mockAgents, handleSubscribe } from "@/api/mockApi";
+import { realApiService } from "@/api/realApi";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Agents() {
-  const [agents, setAgents] = useState(mockAgents);
+ const [agents, setAgents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [loading, setLoading] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export default function Agents() {
   const handleSubscribeClick = async (agentId: string) => {
     setLoading(agentId);
     try {
-      const result = await handleSubscribe(agentId);
+      const result = await realApiService.handleSubscribe(agentId);
       if (result.success) {
         toast({
           title: "Success!",
