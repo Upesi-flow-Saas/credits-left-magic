@@ -1,4 +1,4 @@
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search, User, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,9 +10,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { mockUser } from "@/api/mockApi";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const { profile, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  const getInitials = (name: string | null) => {
+    if (!name) return 'U';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -40,25 +54,33 @@ export default function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-3 hover:bg-gray-100 rounded-xl p-2">
                 <Avatar className="w-8 h-8">
-                  <AvatarImage src={mockUser.avatar} alt={mockUser.name} />
+                  <AvatarImage src={profile?.avatar_url || undefined} alt={profile?.name || 'User'} />
                   <AvatarFallback>
-                    <User className="w-4 h-4" />
+                    {getInitials(profile?.name)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="text-left hidden sm:block">
-                  <p className="font-medium text-gray-900 text-sm">{mockUser.name}</p>
-                  <p className="text-gray-500 text-xs">{mockUser.role}</p>
+                  <p className="font-medium text-gray-900 text-sm">{profile?.name || 'User'}</p>
+                  <p className="text-gray-500 text-xs capitalize">{profile?.role || 'user'}</p>
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>
+                <User className="w-4 h-4 mr-2" />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/billing')}>
+                Billing
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>
+                Settings
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-600">
+              <DropdownMenuItem className="text-red-600" onClick={handleSignOut}>
+                <LogOut className="w-4 h-4 mr-2" />
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>

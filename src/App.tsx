@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Landing from "./pages/Landing";
 import Login from "./pages/auth/Login";
@@ -23,18 +25,62 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
-          <Route path="/agents" element={<DashboardLayout><Agents /></DashboardLayout>} />
-          <Route path="/requests" element={<DashboardLayout><CustomRequestForm /></DashboardLayout>} />
-          <Route path="/my-requests" element={<DashboardLayout><MyRequests /></DashboardLayout>} />
-          <Route path="/billing" element={<DashboardLayout><Billing /></DashboardLayout>} />
-          <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><Dashboard /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/agents" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><Agents /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/requests" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><CustomRequestForm /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/my-requests" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><MyRequests /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/billing" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><Billing /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/settings" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout><Settings /></DashboardLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
