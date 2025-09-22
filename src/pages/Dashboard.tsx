@@ -58,27 +58,27 @@ export default function Dashboard() {
   const { user, stats, recentActivity } = dashboardData;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Welcome Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex flex-col space-y-4 mb-6 md:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             Welcome back, {profile?.name || 'User'} 👋
           </h1>
-          <p className="text-gray-600">Here's what's happening with your AI agents today.</p>
+          <p className="text-gray-600 text-sm md:text-base">Here's what's happening with your AI agents today.</p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
         {/* Active Agents */}
         <GradientCard variant="primary" className="text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm font-medium">Active Agents</p>
-              <p className="text-3xl font-bold mt-2">{stats.activeAgents}</p>
+              <p className="text-purple-100 text-xs md:text-sm font-medium">Active Agents</p>
+              <p className="text-xl md:text-3xl font-bold mt-1 md:mt-2">{stats.activeAgents}</p>
             </div>
-            <Bot className="w-8 h-8 text-purple-200" />
+            <Bot className="w-6 h-6 md:w-8 md:h-8 text-purple-200" />
           </div>
         </GradientCard>
 
@@ -86,65 +86,65 @@ export default function Dashboard() {
         <GradientCard variant="secondary" className="text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-pink-100 text-sm font-medium">Pending Setup</p>
-              <p className="text-3xl font-bold mt-2">{stats.pendingSetup}</p>
+              <p className="text-pink-100 text-xs md:text-sm font-medium">Pending Setup</p>
+              <p className="text-xl md:text-3xl font-bold mt-1 md:mt-2">{stats.pendingSetup}</p>
             </div>
-            <Clock className="w-8 h-8 text-pink-200" />
+            <Clock className="w-6 h-6 md:w-8 md:h-8 text-pink-200" />
           </div>
         </GradientCard>
 
         {/* Errors */}
         <Card className="border-red-200 bg-red-50">
-          <CardContent className="p-6">
+          <CardContent className="p-4 md:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-red-600 text-sm font-medium">Errors</p>
-                <p className="text-3xl font-bold text-red-700 mt-2">{stats.errors}</p>
+                <p className="text-red-600 text-xs md:text-sm font-medium">Errors</p>
+                <p className="text-xl md:text-3xl font-bold text-red-700 mt-1 md:mt-2">{stats.errors}</p>
               </div>
-              <AlertCircle className="w-8 h-8 text-red-500" />
+              <AlertCircle className="w-6 h-6 md:w-8 md:h-8 text-red-500" />
             </div>
           </CardContent>
         </Card>
 
         {/* Total Requests */}
         <Card className="border-green-200 bg-green-50">
-          <CardContent className="p-6">
+          <CardContent className="p-4 md:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-600 text-sm font-medium">Total Requests</p>
-                <p className="text-3xl font-bold text-green-700 mt-2">{stats.totalRequests}</p>
+                <p className="text-green-600 text-xs md:text-sm font-medium">Total Requests</p>
+                <p className="text-xl md:text-3xl font-bold text-green-700 mt-1 md:mt-2">{stats.totalRequests}</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-green-500" />
+              <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-green-500" />
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Subscription Overview */}
           <Card className="hover-glow">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center space-x-2 text-base md:text-lg">
                 <CheckCircle className="w-5 h-5 text-green-500" />
                 <span>Subscription Overview</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 space-y-3 sm:space-y-0">
                 <div>
-                  <p className="text-lg font-semibold text-gray-900">{profile?.plan || 'Free'} Plan</p>
-                  <p className="text-gray-600">Renews on {profile?.renewal_date ? new Date(profile.renewal_date).toLocaleDateString() : 'N/A'}</p>
+                  <p className="text-base md:text-lg font-semibold text-gray-900">{profile?.plan || 'Free'} Plan</p>
+                  <p className="text-gray-600 text-sm">Renews on {profile?.renewal_date ? new Date(profile.renewal_date).toLocaleDateString() : 'N/A'}</p>
                 </div>
-                <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
+                <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-sm">
                   Upgrade Plan
                 </Button>
               </div>
               <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4">
                 <p className="text-sm text-gray-600 mb-2">Plan Benefits</p>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4 text-sm">
                   <div className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
                     <span>Unlimited agents</span>
@@ -160,14 +160,14 @@ export default function Dashboard() {
 
           {/* Connection Status */}
           <Card className="hover-glow">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center space-x-2 text-base md:text-lg">
                 <Shield className="w-5 h-5 text-blue-500" />
                 <span>Connection Status</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
                     <Mail className="w-5 h-5 text-red-600" />
@@ -199,23 +199,23 @@ export default function Dashboard() {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Security Card */}
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 hover-glow">
-            <CardContent className="p-6">
+            <CardContent className="p-4 md:p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Security</h3>
-                  <p className="text-sm text-gray-600">Enterprise Grade</p>
+                  <h3 className="font-semibold text-gray-900 text-sm md:text-base">Security</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Enterprise Grade</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-700 mb-4">
+              <p className="text-xs md:text-sm text-gray-700 mb-4">
                 Your data is encrypted with AES-256 and stored securely in SOC 2 compliant data centers.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="outline" size="sm" className="w-full text-xs md:text-sm">
                 View Security Details
               </Button>
             </CardContent>
@@ -223,20 +223,20 @@ export default function Dashboard() {
 
           {/* Tip Card */}
           <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 hover-glow float-animation">
-            <CardContent className="p-6">
+            <CardContent className="p-4 md:p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
-                  <Lightbulb className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Pro Tip</h3>
-                  <p className="text-sm text-gray-600">Automation Hack</p>
+                  <h3 className="font-semibold text-gray-900 text-sm md:text-base">Pro Tip</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Automation Hack</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-700 mb-4">
+              <p className="text-xs md:text-sm text-gray-700 mb-4">
                 Submit a custom agent request to unlock more automation possibilities for your workflow.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="outline" size="sm" className="w-full text-xs md:text-sm">
                 Create Custom Agent
               </Button>
             </CardContent>
@@ -244,8 +244,8 @@ export default function Dashboard() {
 
           {/* Recent Activity */}
           <Card className="hover-glow">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center space-x-2 text-base md:text-lg">
                 <Activity className="w-5 h-5 text-purple-500" />
                 <span>Recent Activity</span>
               </CardTitle>
@@ -254,9 +254,9 @@ export default function Dashboard() {
               <div className="space-y-3">
                 {recentActivity.map((activity: any, index: number) => (
                   <div key={index} className="flex items-center space-x-3 py-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">{activity.action}</p>
+                    <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs md:text-sm font-medium text-gray-900 truncate">{activity.action}</p>
                       <p className="text-xs text-gray-500">{activity.time}</p>
                     </div>
                   </div>

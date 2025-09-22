@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -28,21 +29,22 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-4">
+    <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-3 md:px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Search */}
+        {/* Mobile Menu Trigger + Search */}
         <div className="flex items-center space-x-4 flex-1 max-w-lg">
+          <SidebarTrigger className="md:hidden" />
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             <Input
               placeholder="Search agents, requests..."
-              className="pl-10 bg-white/60 border-gray-200 focus:bg-white"
+              className="pl-10 bg-white/60 border-gray-200 focus:bg-white text-sm"
             />
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 md:space-x-4">
           {/* Notifications */}
           <Button variant="ghost" size="sm" className="relative">
             <Bell className="w-5 h-5 text-gray-600" />
@@ -52,7 +54,7 @@ export default function Header() {
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-3 hover:bg-gray-100 rounded-xl p-2">
+              <Button variant="ghost" className="flex items-center space-x-2 md:space-x-3 hover:bg-gray-100 rounded-xl p-2">
                 <Avatar className="w-8 h-8">
                   <AvatarImage src={profile?.avatar_url || undefined} alt={profile?.name || 'User'} />
                   <AvatarFallback>
