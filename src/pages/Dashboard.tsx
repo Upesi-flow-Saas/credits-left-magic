@@ -16,8 +16,10 @@ import {
   Activity
 } from "lucide-react";
 import { fetchDashboardData } from "@/api/mockApi";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Dashboard() {
+  const { profile } = useAuth();
   const [dashboardData, setDashboardData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +63,7 @@ export default function Dashboard() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user.name.split(' ')[0]} 👋
+            Welcome back, {profile?.name || 'User'} 👋
           </h1>
           <p className="text-gray-600">Here's what's happening with your AI agents today.</p>
         </div>
@@ -133,8 +135,8 @@ export default function Dashboard() {
             <CardContent>
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-lg font-semibold text-gray-900">{user.plan} Plan</p>
-                  <p className="text-gray-600">Renews on {new Date(user.renewalDate).toLocaleDateString()}</p>
+                  <p className="text-lg font-semibold text-gray-900">{profile?.plan || 'Free'} Plan</p>
+                  <p className="text-gray-600">Renews on {profile?.renewal_date ? new Date(profile.renewal_date).toLocaleDateString() : 'N/A'}</p>
                 </div>
                 <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
                   Upgrade Plan
