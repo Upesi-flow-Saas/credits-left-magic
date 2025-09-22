@@ -18,7 +18,7 @@ class RealApiService {
       let { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', user.id)
+        .eq('user_id', user.id)
         .single();
 
       if (profileError && profileError.code === 'PGRST116') {
@@ -26,10 +26,11 @@ class RealApiService {
         const { data: newProfile, error: createError } = await supabase
           .from('profiles')
           .insert({
-            id: user.id,
+            user_id: user.id,
+            email: user.email!,
             name: user.user_metadata?.name || user.email?.split('@')[0] || 'User',
             avatar_url: user.user_metadata?.avatar_url,
-            plan: 'starter'
+            plan: 'free'
           })
           .select()
           .single();
@@ -55,39 +56,34 @@ class RealApiService {
     }
   }
 
-  // AGENT MANAGEMENT
+  // AGENT MANAGEMENT - Using mock data for now
   async fetchAgents() {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Not authenticated');
-
-      // Get all available agents
-      const { data: agents, error: agentsError } = await supabase
-        .from('agents')
-        .select('*')
-        .eq('is_active', true)
-        .order('created_at');
-
-      if (agentsError) throw agentsError;
-
-      // Get user's subscriptions
-      const { data: subscriptions, error: subsError } = await supabase
-        .from('user_agent_subscriptions')
-        .select('*')
-        .eq('user_id', user.id);
-
-      if (subsError) throw subsError;
-
-      return agents.map(agent => ({
-        id: agent.id,
-        name: agent.name,
-        description: agent.description,
-        icon: agent.icon,
-        category: agent.category,
-        subscriptionStatus: subscriptions.find(sub => sub.agent_id === agent.id)?.status || 'not-subscribed',
-        status: subscriptions.find(sub => sub.agent_id === agent.id)?.status === 'active' ? 'active' : 'inactive',
-        connected: true // Simplified for now
-      }));
+      await this.sleep(600);
+      
+      // Return mock data until tables are set up
+      return [
+        {
+          id: '1',
+          name: 'Email Assistant',
+          description: 'Automates email responses and organization',
+          icon: '📧',
+          category: 'Communication',
+          subscriptionStatus: 'not-subscribed',
+          status: 'inactive',
+          connected: false
+        },
+        {
+          id: '2', 
+          name: 'Calendar Manager',
+          description: 'Schedules meetings and manages your calendar',
+          icon: '📅',
+          category: 'Productivity',
+          subscriptionStatus: 'not-subscribed', 
+          status: 'inactive',
+          connected: false
+        }
+      ];
     } catch (error) {
       console.error('Error fetching agents:', error);
       throw error;
@@ -101,19 +97,7 @@ class RealApiService {
 
       await this.sleep(1000);
 
-      const { data, error } = await supabase
-        .from('user_agent_subscriptions')
-        .insert({
-          user_id: user.id,
-          agent_id: agentId,
-          status: 'active',
-          expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
+      // Mock subscription for now
       return {
         success: true,
         agentId,
@@ -145,7 +129,7 @@ class RealApiService {
     };
   }
 
-  // CUSTOM REQUESTS
+  // CUSTOM REQUESTS - Mock for now
   async submitCustomRequest(formData: any) {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -153,23 +137,10 @@ class RealApiService {
 
       await this.sleep(800);
 
-      const { data, error } = await supabase
-        .from('custom_agent_requests')
-        .insert({
-          user_id: user.id,
-          agent_name: formData.agentName,
-          description: formData.description,
-          category: formData.category,
-          urgency: formData.urgency
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
+      // Mock request submission
       return {
         success: true,
-        requestId: data.id,
+        requestId: 'mock-' + Date.now(),
         status: 'submitted',
         message: 'Your custom agent request has been submitted!'
       };
@@ -181,26 +152,10 @@ class RealApiService {
 
   async fetchRequests() {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Not authenticated');
-
-      const { data, error } = await supabase
-        .from('custom_agent_requests')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      return data.map(request => ({
-        id: request.id,
-        agentName: request.agent_name,
-        description: request.description,
-        date: request.created_at,
-        status: request.status,
-        category: request.category,
-        urgency: request.urgency
-      }));
+      await this.sleep(600);
+      
+      // Return mock data for now
+      return [];
     } catch (error) {
       console.error('Error fetching requests:', error);
       throw error;
