@@ -15,6 +15,11 @@ import CustomRequestForm from "./pages/CustomRequestForm";
 import MyRequests from "./pages/MyRequests";
 import Billing from "./pages/Billing";
 import Settings from "./pages/Settings";
+import Pricing from "./pages/Pricing";
+import EmailSetup from "./pages/setup/EmailSetup";
+import WhatsAppSetup from "./pages/setup/WhatsAppSetup";
+import SocialSetup from "./pages/setup/SocialSetup";
+import FAQManagement from "./pages/FAQManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +35,11 @@ const App = () => (
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/setup/email" element={<ProtectedRoute><EmailSetup /></ProtectedRoute>} />
+            <Route path="/setup/whatsapp" element={<ProtectedRoute><WhatsAppSetup /></ProtectedRoute>} />
+            <Route path="/setup/social" element={<ProtectedRoute><SocialSetup /></ProtectedRoute>} />
+            <Route path="/faq-management" element={<ProtectedRoute><FAQManagement /></ProtectedRoute>} />
             <Route 
               path="/dashboard" 
               element={

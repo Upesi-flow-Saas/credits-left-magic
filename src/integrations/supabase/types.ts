@@ -156,6 +156,39 @@ export type Database = {
           },
         ]
       }
+      faqs: {
+        Row: {
+          answer: string
+          created_at: string
+          id: string
+          question: string
+          source: string | null
+          source_url: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answer: string
+          created_at?: string
+          id?: string
+          question: string
+          source?: string | null
+          source_url?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answer?: string
+          created_at?: string
+          id?: string
+          question?: string
+          source?: string | null
+          source_url?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -238,6 +271,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          gmail_connected: boolean | null
+          id: string
+          plan: string
+          social_connected: boolean | null
+          status: string
+          updated_at: string
+          user_id: string
+          whatsapp_connected: boolean | null
+          whatsapp_phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          gmail_connected?: boolean | null
+          id?: string
+          plan: string
+          social_connected?: boolean | null
+          status?: string
+          updated_at?: string
+          user_id: string
+          whatsapp_connected?: boolean | null
+          whatsapp_phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          gmail_connected?: boolean | null
+          id?: string
+          plan?: string
+          social_connected?: boolean | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp_connected?: boolean | null
+          whatsapp_phone?: string | null
+        }
+        Relationships: []
       }
       user_agent_subscriptions: {
         Row: {
